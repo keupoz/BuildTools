@@ -19,9 +19,9 @@ export default class Watcher {
   public update (watchPaths: string[]): void {
     const { oldPaths } = this;
 
-    let newPaths  = watchPaths.filter((path) => !this.filter.test(path)),
-        toWatch   =   newPaths.filter((path) => !this.oldPaths.includes(path)),
-        toUnwatch =   oldPaths.filter((path) => !watchPaths.includes(path));
+    let newPaths  = this.filter ? watchPaths.filter((path) => !this.filter.test(path)) : watchPaths.slice(),
+        toWatch   = newPaths.filter((path) => !this.oldPaths.includes(path)),
+        toUnwatch = oldPaths.filter((path) => !watchPaths.includes(path));
 
     this.watcher.unwatch(toUnwatch);
     this.watcher.add(toWatch);
