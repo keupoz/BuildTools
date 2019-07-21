@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var GulpHelper = /** @class */ (function () {
     function GulpHelper() {
+        this.watchers = [];
     }
     GulpHelper.prototype.setCloseCallback = function (callback) {
         this.callback = callback;
