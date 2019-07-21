@@ -2,7 +2,7 @@
   "name": "@keupoz/buildtools",
   "version": "1.0.0",
   "description": "Personal tools for building projects",
-  "main": "src/main.ts",
+  "main": "dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,6 +15,10 @@
     "rollup",
     "sass",
     "pug"
+  ],
+  "files": [
+    "dist",
+    "LICENSE"
   ],
   "author": "keupoz",
   "license": "MIT",
@@ -34,6 +38,7 @@
     "@types/fs-extra": "^8.0.0",
     "@types/pug": "^2.0.4",
     "@types/sass": "^1.16.0",
-    "@types/uglify-js": "^3.0.4"
+    "@types/uglify-js": "^3.0.4",
+    "typescript": "^3.5.3"
   }
 }
