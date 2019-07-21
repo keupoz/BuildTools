@@ -35,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var gulp_1 = require("gulp");
 var RollupPlugins_1 = require("./RollupPlugins");
 exports.RollupPlugins = RollupPlugins_1.default;
 var Assets_1 = require("./bundlers/Assets");
@@ -50,6 +49,11 @@ var GulpHelper_1 = require("./GulpHelper");
 exports.GulpHelper = GulpHelper_1.default;
 var RollupPlugins_2 = require("./RollupPlugins");
 exports.uglify = RollupPlugins_2.uglify;
+var series;
+function setSeriesFunction(fn) {
+    series = fn;
+}
+exports.setSeriesFunction = setSeriesFunction;
 function task(name, fn) {
     var _this = this;
     var cb = function (done) {
@@ -66,6 +70,6 @@ function task(name, fn) {
         }); }, 200);
     };
     cb.displayName = name;
-    return gulp_1.series(cb);
+    return series(cb);
 }
 exports.task = task;
