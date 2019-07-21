@@ -27,6 +27,10 @@
   },
   "homepage": "https://github.com/keupoz/BuildTools#readme",
   "dependencies": {
+    "@types/fs-extra": "^8.0.0",
+    "@types/pug": "^2.0.4",
+    "@types/sass": "^1.16.0",
+    "@types/uglify-js": "^3.0.4",
     "chokidar": "^3.0.2",
     "fs-extra": "^8.1.0",
     "pug": "^2.0.4",
@@ -35,10 +39,6 @@
     "uglify-js": "^3.6.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.0.0",
-    "@types/pug": "^2.0.4",
-    "@types/sass": "^1.16.0",
-    "@types/uglify-js": "^3.0.4",
     "typescript": "^3.5.3"
   }
 }
