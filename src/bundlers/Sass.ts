@@ -1,4 +1,4 @@
-import sass, { Options as SassOptions } from 'sass';
+import { renderSync, Options as SassOptions } from 'sass';
 
 import { writeFileSync } from 'fs';
 
@@ -18,7 +18,7 @@ export default class Sass extends AbstractBundler {
   }
 
   public async bundle (): Promise<void> {
-    let result = sass.renderSync(this.config);
+    let result = renderSync(this.config);
 
     writeFileSync(this.config.outFile, result.css);
 

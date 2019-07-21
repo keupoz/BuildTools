@@ -1,4 +1,4 @@
-import pug, { Options as PugOptions } from 'pug';
+import { renderFile, Options as PugOptions } from 'pug';
 
 import { writeFileSync } from 'fs';
 
@@ -26,7 +26,7 @@ export default class Pug extends AbstractBundler {
   }
 
   public async bundle (): Promise<void> {
-    let result = pug.renderFile(this.config.filename, this.config);
+    let result = renderFile(this.config.filename, this.config);
 
     writeFileSync(this.output, result);
   }
