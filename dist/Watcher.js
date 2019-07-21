@@ -14,7 +14,7 @@ var Watcher = /** @class */ (function () {
     Watcher.prototype.update = function (watchPaths) {
         var _this = this;
         var oldPaths = this.oldPaths;
-        var newPaths = watchPaths.filter(function (path) { return !_this.filter.test(path); }), toWatch = newPaths.filter(function (path) { return !_this.oldPaths.includes(path); }), toUnwatch = oldPaths.filter(function (path) { return !watchPaths.includes(path); });
+        var newPaths = this.filter ? watchPaths.filter(function (path) { return !_this.filter.test(path); }) : watchPaths.slice(), toWatch = newPaths.filter(function (path) { return !_this.oldPaths.includes(path); }), toUnwatch = oldPaths.filter(function (path) { return !watchPaths.includes(path); });
         this.watcher.unwatch(toUnwatch);
         this.watcher.add(toWatch);
         this.oldPaths = watchPaths;
