@@ -1,0 +1,39 @@
+{
+  "name": "@keupoz/buildtools",
+  "version": "1.0.0",
+  "description": "Personal tools for building projects",
+  "main": "src/main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keupoz/BuildTools.git"
+  },
+  "keywords": [
+    "gulp",
+    "rollup",
+    "sass",
+    "pug"
+  ],
+  "author": "keupoz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/keupoz/BuildTools/issues"
+  },
+  "homepage": "https://github.com/keupoz/BuildTools#readme",
+  "dependencies": {
+    "chokidar": "^3.0.2",
+    "fs-extra": "^8.1.0",
+    "pug": "^2.0.4",
+    "rollup": "^1.17.0",
+    "sass": "^1.22.7",
+    "uglify-js": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.0.0",
+    "@types/pug": "^2.0.4",
+    "@types/sass": "^1.16.0",
+    "@types/uglify-js": "^3.0.4"
+  }
+}
