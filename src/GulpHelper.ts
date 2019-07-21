@@ -3,7 +3,7 @@ import { FSWatcher } from 'chokidar';
 import AbstractBundler from './bundlers/AbstractBundler';
 
 export default class GulpHelper {
-  private watchers: FSWatcher[];
+  private watchers: FSWatcher[] = [];
   private callback: () => void;
 
   public setCloseCallback (callback: () => void): this {
