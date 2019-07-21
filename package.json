@@ -28,13 +28,11 @@
   "homepage": "https://github.com/keupoz/BuildTools#readme",
   "dependencies": {
     "@types/fs-extra": "^8.0.0",
-    "@types/gulp": "^4.0.6",
     "@types/pug": "^2.0.4",
     "@types/sass": "^1.16.0",
     "@types/uglify-js": "^3.0.4",
     "chokidar": "^3.0.2",
     "fs-extra": "^8.1.0",
-    "gulp": "^4.0.2",
     "pug": "^2.0.4",
     "rollup": "^1.17.0",
     "sass": "^1.22.7",

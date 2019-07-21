@@ -1,5 +1,3 @@
-import { series } from 'gulp';
-
 import RollupPlugins from './RollupPlugins';
 
 import Assets from './bundlers/Assets';
@@ -14,6 +12,12 @@ export { AssetsConfig } from './bundlers/Assets';
 
 export { RollupPlugins, Assets, Rollup, Sass, Pug };
 export { GulpHelper };
+
+let series: Function;
+
+export function setSeriesFunction (fn: Function): void {
+  series = fn;
+}
 
 export function task<Callback extends () => Promise<void>> (name: string, fn: Callback) {
   let cb = (done: () => void) => {
