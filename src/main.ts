@@ -20,11 +20,14 @@ export function setSeriesFunction (fn: Function): void {
 }
 
 export function task<Callback extends () => Promise<void>> (name: string, fn: Callback) {
-  let cb = (done: () => void) => {
-    setTimeout(async () => {
-      await fn();
-      done();
-    }, 200);
+  let cb = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        fn()
+          .then(() => resolve())
+          .catch((err) => reject(err));
+      }, 200);
+    });
   };
   (<any> cb).displayName = name;
   return <Callback> series(cb);
