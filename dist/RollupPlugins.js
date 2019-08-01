@@ -23,10 +23,14 @@ exports.uglify = uglify;
  */
 var RollupPlugins = /** @class */ (function () {
     function RollupPlugins() {
+        this.req = require;
         this.cache = {};
     }
     RollupPlugins.getInstance = function () {
         return this.instance;
+    };
+    RollupPlugins.prototype.setReq = function (req) {
+        this.req = req;
     };
     /**
      * Resolve and return Rollup plugin
@@ -42,7 +46,7 @@ var RollupPlugins = /** @class */ (function () {
         if (name == 'uglify' && builtIn)
             return uglify;
         if (!(name in this.cache))
-            this.cache[name] = require("rollup-plugin-" + name);
+            this.cache[name] = this.req("rollup-plugin-" + name);
         return this.cache[name];
     };
     RollupPlugins.instance = new RollupPlugins();

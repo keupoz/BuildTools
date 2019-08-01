@@ -59,8 +59,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var tc = require("turbocolor");
 var rollup_1 = require("rollup");
 var AbstractBundler_1 = require("./AbstractBundler");
+// https://github.com/rollup/rollup/blob/master/bin/src/logging.ts
+var stderr = console.error.bind(console);
+function handleError(err) {
+    var description = err.message || err;
+    if (err.name)
+        description = err.name + ": " + description;
+    var message = (err.plugin
+        ? "(plugin " + err.plugin + ") " + description
+        : description) || err;
+    stderr(tc.bold.red("[!] " + tc.bold(message.toString())));
+    if (err.url)
+        stderr(tc.cyan(err.url));
+    if (err.loc) {
+        stderr((err.loc.file || err.id) + " (" + err.loc.line + ":" + err.loc.column + ")");
+    }
+    else if (err.id) {
+        stderr(err.id);
+    }
+    if (err.frame) {
+        stderr(tc.dim(err.frame));
+    }
+    if (err.stack) {
+        stderr(tc.dim(err.stack));
+    }
+    stderr('');
+}
 var Rollup = /** @class */ (function (_super) {
     __extends(Rollup, _super);
     function Rollup(config, watch, autobundle) {
@@ -76,10 +103,11 @@ var Rollup = /** @class */ (function (_super) {
     }
     Rollup.prototype.bundle = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, config, cache, output, bundle, _i, output_1, out_entry;
+            var _a, config, cache, output, bundle, _i, output_1, out_entry, err_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        _b.trys.push([0, 9, , 10]);
                         _a = this, config = _a.config, cache = _a.cache, output = _a.output;
                         return [4 /*yield*/, rollup_1.rollup(__assign({}, config, { cache: cache }))];
                     case 1:
@@ -106,7 +134,12 @@ var Rollup = /** @class */ (function (_super) {
                         this.cache = bundle.cache;
                         if (this.watcher)
                             this.watcher.update(bundle.watchFiles);
-                        return [2 /*return*/];
+                        return [3 /*break*/, 10];
+                    case 9:
+                        err_1 = _b.sent();
+                        handleError(err_1);
+                        throw new Error('Rollup error occured');
+                    case 10: return [2 /*return*/];
                 }
             });
         });

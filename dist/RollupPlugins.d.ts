@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { MinifyOptions } from 'uglify-js';
 import { Plugin } from 'rollup';
 /**
@@ -10,6 +11,8 @@ export declare function uglify(options: MinifyOptions): Plugin;
 declare class RollupPlugins {
     private static instance;
     static getInstance(): RollupPlugins;
+    private req;
+    setReq(req: NodeRequireFunction): void;
     private cache;
     /**
      * Resolve and return Rollup plugin
