@@ -46,7 +46,7 @@ export default class Rollup extends AbstractBundler {
     private config: RollupOptions;
     private output: EOutputOptions;
 
-    private cache: RollupCache;
+    private cache?: RollupCache;
 
     constructor(config: ERollupOptions, watch: boolean, autobundle?: boolean) {
         super();

@@ -1,6 +1,11 @@
 import { writeFileSync } from "fs";
-import { Options as SassOptions, renderSync } from "sass";
+import { Options, renderSync } from "sass";
 import AbstractBundler from "./AbstractBundler";
+
+export type SassOptions = Options & {
+    file: string;
+    outFile: string;
+};
 
 export default class Sass extends AbstractBundler {
     private config: SassOptions;

@@ -8,7 +8,7 @@ export function uglify(options: MinifyOptions): Plugin {
     return {
         name: "uglify",
 
-        renderChunk(code, chunk, outputOptions) {
+        renderChunk(code, _, outputOptions) {
             if (!outputOptions.compact) return code;
 
             let output = minify(code, options);
@@ -28,12 +28,6 @@ class RollupPlugins {
         return this.instance;
     }
 
-    private req: NodeRequireFunction = require;
-
-    public setReq(req: NodeRequireFunction): void {
-        this.req = req;
-    }
-
     private cache: Record<string, any> = {};
 
     /**
@@ -47,7 +41,7 @@ class RollupPlugins {
 
         if (name == "uglify" && builtIn) return uglify;
 
-        if (!(name in this.cache)) this.cache[name] = this.req(`rollup-plugin-${name}`);
+        if (!(name in this.cache)) this.cache[name] = require(`rollup-plugin-${name}`);
         return this.cache[name];
     }
 }

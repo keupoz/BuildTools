@@ -4,7 +4,7 @@ import AbstractBundler from "./bundlers/AbstractBundler";
 
 export default class GulpHelper {
     private watchers: FSWatcher[] = [];
-    private callback: () => void;
+    private callback: () => void = () => { };
 
     public setCloseCallback(callback: () => void): this {
         this.callback = callback;
@@ -18,6 +18,8 @@ export default class GulpHelper {
 
     public add(bundler: AbstractBundler, callback: () => void): this {
         let watcher = bundler.getWatcher();
+
+        if (!watcher) throw new TypeError("Watcher is not initialized");
 
         watcher.on("all", callback);
 
@@ -36,7 +38,7 @@ export default class GulpHelper {
                 }, 200);
             });
         };
-        (<any>cb).displayName = name;
-        return <Callback>series(cb);
+        (cb as any).displayName = name;
+        return series(cb) as Callback;
     }
 }
