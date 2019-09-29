@@ -1,14 +1,6 @@
-import RollupPlugins from './RollupPlugins';
-
-import Assets from './bundlers/Assets';
-import Rollup from './bundlers/Rollup';
-import Sass   from './bundlers/Sass';
-import Pug    from './bundlers/Pug';
-
-import GulpHelper from './GulpHelper';
-
-export { uglify } from './RollupPlugins';
-export { AssetsConfig } from './bundlers/Assets';
-
-export { RollupPlugins, Assets, Rollup, Sass, Pug };
-export { GulpHelper };
+export { AssetsConfig, default as Assets } from "./bundlers/Assets";
+export { default as Pug } from "./bundlers/Pug";
+export { default as Rollup } from "./bundlers/Rollup";
+export { default as Sass } from "./bundlers/Sass";
+export { default as GulpHelper } from "./GulpHelper";
+export { default as RollupPlugins, uglify } from "./RollupPlugins";

@@ -1,33 +1,31 @@
-import { renderFile, Options as PugOptions } from 'pug';
-
-import { writeFileSync } from 'fs';
-
-import AbstractBundler from './AbstractBundler';
+import { writeFileSync } from "fs";
+import { Options as PugOptions, renderFile } from "pug";
+import AbstractBundler from "./AbstractBundler";
 
 export type Options = PugOptions & {
-  output: string;
+    output: string;
 };
 
 export default class Pug extends AbstractBundler {
-  private output: string;
-  private config: PugOptions;
+    private output: string;
+    private config: PugOptions;
 
-  constructor (config: Options, watch: boolean, autobundle?: boolean) {
-    super();
+    constructor(config: Options, watch: boolean, autobundle?: boolean) {
+        super();
 
-    this.output = config.output;
-    delete config.output;
+        this.output = config.output;
+        delete config.output;
 
-    this.config = <PugOptions> config;
+        this.config = <PugOptions>config;
 
-    if (watch) {
-      this.initWatcher(config.filename, autobundle);
+        if (watch) {
+            this.initWatcher(config.filename, autobundle);
+        }
     }
-  }
 
-  public async bundle (): Promise<void> {
-    let result = renderFile(this.config.filename, this.config);
+    public async bundle(): Promise<void> {
+        let result = renderFile(this.config.filename, this.config);
 
-    writeFileSync(this.output, result);
-  }
+        writeFileSync(this.output, result);
+    }
 }

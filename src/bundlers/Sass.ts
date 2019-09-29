@@ -1,27 +1,25 @@
-import { renderSync, Options as SassOptions } from 'sass';
-
-import { writeFileSync } from 'fs';
-
-import AbstractBundler from './AbstractBundler';
+import { writeFileSync } from "fs";
+import { Options as SassOptions, renderSync } from "sass";
+import AbstractBundler from "./AbstractBundler";
 
 export default class Sass extends AbstractBundler {
-  private config: SassOptions;
+    private config: SassOptions;
 
-  constructor (config: SassOptions, watch: boolean, autobundle?: boolean) {
-    super();
+    constructor(config: SassOptions, watch: boolean, autobundle?: boolean) {
+        super();
 
-    this.config = config;
+        this.config = config;
 
-    if (watch) {
-      this.initWatcher(config.file, autobundle);
+        if (watch) {
+            this.initWatcher(config.file, autobundle);
+        }
     }
-  }
 
-  public async bundle (): Promise<void> {
-    let result = renderSync(this.config);
+    public async bundle(): Promise<void> {
+        let result = renderSync(this.config);
 
-    writeFileSync(this.config.outFile, result.css);
+        writeFileSync(this.config.outFile, result.css);
 
-    if (this.watcher) this.watcher.update(result.stats.includedFiles);
-  }
+        if (this.watcher) this.watcher.update(result.stats.includedFiles);
+    }
 }
