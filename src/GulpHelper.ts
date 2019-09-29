@@ -1,4 +1,5 @@
 import { FSWatcher } from 'chokidar';
+import { series } from 'gulp';
 
 import AbstractBundler from './bundlers/AbstractBundler';
 
@@ -24,5 +25,19 @@ export default class GulpHelper {
     this.watchers.push(watcher);
 
     return this;
+  }
+
+  public task<Callback extends () => Promise<void>> (name: string, fn: Callback) {
+    let cb = () => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          fn()
+            .then(() => resolve())
+            .catch((err) => reject(err));
+        }, 200);
+      });
+    };
+    (<any> cb).displayName = name;
+    return <Callback> series(cb);
   }
 }
