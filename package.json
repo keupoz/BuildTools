@@ -30,6 +30,7 @@
   "dependencies": {
     "chokidar": "^3.0.2",
     "fs-extra": "^8.1.0",
+    "glob": "^7.1.4",
     "pug": "^2.0.4",
     "rollup": "^1.17.0",
     "sass": "^1.22.7",
