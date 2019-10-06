@@ -36,11 +36,13 @@ new Bundler(config, watch, autobundle);
 
 ### Assets bundler
 Just copies assets folder
-Import:
+
+**Import:**
 ```javascript
 import { Assets } from "@keupoz/buildtools";
 ```
-Config:
+
+**Config:**
 ```javascript
 const assets_config = {
   inputDir: "src/assets",
@@ -49,36 +51,66 @@ const assets_config = {
 ```
 
 ### Pug bundler
-Compiles pug files. Supports only one file as the package is supposed to be used to build SPA
-Import:
+Compiles pug files.
+
+**Import:**
 ```javascript
 import { Pug } from "@keupoz/buildtools";
 ```
-Config: see https://github.com/pugjs/pug#options
-Config is also extended by 1 option `output` that specifies output file name
+
+**Config:** see https://github.com/pugjs/pug#options
+
+Config is also extended by 2 options:
+- `inputdir` - a directory which the bundler should search for pug files
+- `outputdir` - output directory
+
+The bundler currently only supports basic pages structure.
+
+**Source structure:**
+```
+src
++- about.pug
++- help.pug
++- index.pug
+```
+
+**Resulting structure:**
+```
+output
++- about
+|  +- index.html
++- help
+|  +- index.html
++- index.html
+```
 
 ### Sass bundler
 Compiles sass files
-Import:
+
+**Import:**
 ```javascript
 import { Sass } from "@keupoz/buildtools";
 ```
-Config: see https://sass-lang.com/documentation/js-api#options
+
+**Config:** see https://sass-lang.com/documentation/js-api#options
 
 ### Rollup bundler
 Compiles JavaScript using Rollup. Multiple outputs supported. But multiple input configs AREN'T supported, use different instances
-Import:
+
+**Import:**
 ```javascript
 // Import bundler
 import { Rollup } from "@keupoz/buildtools";
 // Import plugins getter
 import { RollupPlugins } from "@keupoz/buildtools";
 ```
-Config: see https://rollupjs.org/guide/en/#big-list-of-options
+
+**Config:** see https://rollupjs.org/guide/en/#big-list-of-options
 
 #### RollupPlugins
 Helps getting rollup plugins
-Usage:
+
+**Usage:**
 ```javascript
 // Plugin name is its name without `rollup-plugin-`
 // `actuallyGet` specifies do actually get the plugin. Useful with `isProduction` constant
@@ -86,28 +118,16 @@ Usage:
 RP.get(pluginName, actuallyGet, builtIn);
 ```
 
-### Task wrapper
-There is helpful function that wraps your functions into Gulp tasks so it will log pretty messages on calling them
-Usage:
-```javascript
-import { setSeriesFunction, task } from "@keupoz/buildtools";
-import { series } from "gulp";
-
-// Set series function. This made to decrease dependencies
-setSeriesFunction(series);
-
-const bundlerTask = task("task_name", () => bundler.bundle());
-```
-
 ### GulpHelper
 Useful in dev build in watch task. Registers bundlers and stops watchers and ends watch task on close
-Usage:
+
+**Usage:**
 ```javascript
 import { GulpHelper } from "@keupoz/buildtools";
 
 const HELPER = new GulpHelper();
 
-function watch (done: () => void) {
+function watch(done: () => void) {
   HELPER
     // does what it says
     // this callback is used when `.close` is called
@@ -132,4 +152,16 @@ function watch (done: () => void) {
     process.exit();
   });
 }
+```
+
+#### Task wrapper
+There is a helpful function that wraps your functions into Gulp tasks so it will log pretty messages on calling them
+
+> To use task wrapper you must install gulp in your project
+
+**Usage:**
+```javascript
+import { GulpHelper } from "@keupoz/buildtools";
+
+const bundlerTask = GulpHelper.task("task_name", () => bundler.bundle());
 ```
