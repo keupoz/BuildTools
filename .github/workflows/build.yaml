@@ -1,0 +1,36 @@
+name: "Build and Deploy"
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    name: "Build and release"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout code"
+        uses: "actions/checkout@v1"
+
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v1"
+        with:
+          node-version: "10.x"
+
+      - name: "Install dependencies"
+        run: npm i
+
+      - name: "Build the library with TSC"
+        run: "tsc"
+
+      - name: "Release to GitHub"
+        uses: "meeDamian/github-release@v1.0.1"
+        with:
+          allow_override: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: "BuildTools-release:build/"
+
+      - name: "Publish to NPM"
+        run: "npm publish"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
